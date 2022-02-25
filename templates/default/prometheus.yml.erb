@@ -94,6 +94,7 @@ scrape_configs:
 
         services: ['glassfish']
         tags: ['monitoring']
+  <% if node['install']['kubernetes'].casecmp("true") == 1 -%>
   - job_name: 'knative-controller'
     scrape_interval: 3s
     scrape_timeout: 3s
@@ -101,15 +102,15 @@ scrape_configs:
       - role: pod
         api_server: https://<%= @kube_cluster_master_ip %>:<%= node['kube-hops']['apiserver']['port'] %>
         tls_config:
-          ca_file: <%= node['kube-hops']['certs']['ca'] %>
-          cert_file: <%= node['kube-hops']['hopsmon']['cert'] %>
-          key_file: <%= node['kube-hops']['hopsmon']['key'] %>
+          ca_file: <%= node['hopsmonitor']['kube_ca'] %>
+          cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
+          key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
           insecure_skip_verify: true
     scheme: https
     tls_config:
-      ca_file: <%= node['kube-hops']['certs']['ca'] %>
-      cert_file: <%= node['kube-hops']['hopsmon']['cert'] %>
-      key_file: <%= node['kube-hops']['hopsmon']['key'] %>
+      ca_file: <%= node['hopsmonitor']['kube_ca'] %>
+      cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
+      key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
       insecure_skip_verify: true
     relabel_configs:
       # Scrape only the the targets matching the following metadata
@@ -131,15 +132,15 @@ scrape_configs:
         - role: pod
           api_server: https://<%= @kube_cluster_master_ip %>:<%= node['kube-hops']['apiserver']['port'] %>
           tls_config:
-            ca_file: <%= node['kube-hops']['certs']['ca'] %>
-            cert_file: <%= node['kube-hops']['hopsmon']['cert'] %>
-            key_file: <%= node['kube-hops']['hopsmon']['key'] %>
+            ca_file: <%= node['hopsmonitor']['kube_ca'] %>
+            cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
+            key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
             insecure_skip_verify: true
       scheme: https
       tls_config:
-        ca_file: <%= node['kube-hops']['certs']['ca'] %>
-        cert_file: <%= node['kube-hops']['hopsmon']['cert'] %>
-        key_file: <%= node['kube-hops']['hopsmon']['key'] %>
+        ca_file: <%= node['hopsmonitor']['kube_ca'] %>
+        cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
+        key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
         insecure_skip_verify: true
       relabel_configs:
         # Scrape only the the targets matching the following metadata
@@ -161,15 +162,15 @@ scrape_configs:
         - role: pod
           api_server: https://<%= @kube_cluster_master_ip %>:<%= node['kube-hops']['apiserver']['port'] %>
           tls_config:
-            ca_file: <%= node['kube-hops']['certs']['ca'] %>
-            cert_file: <%= node['kube-hops']['hopsmon']['cert'] %>
-            key_file: <%= node['kube-hops']['hopsmon']['key'] %>
+            ca_file: <%= node['hopsmonitor']['kube_ca'] %>
+            cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
+            key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
             insecure_skip_verify: true
       scheme: https
       tls_config:
-        ca_file: <%= node['kube-hops']['certs']['ca'] %>
-        cert_file: <%= node['kube-hops']['hopsmon']['cert'] %>
-        key_file: <%= node['kube-hops']['hopsmon']['key'] %>
+        ca_file: <%= node['hopsmonitor']['kube_ca'] %>
+        cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
+        key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
         insecure_skip_verify: true
       relabel_configs:
         # Scrape only the the targets matching the following metadata
@@ -189,17 +190,17 @@ scrape_configs:
       scrape_timeout: 3s
       kubernetes_sd_configs:
         - role: pod
-          api_server: https://<%= @kube_cluster_master_ip %>:<%= node['kube-hops']['apiserver']['port'] %>
+          api_server: https://<%= @kube_cluster_master_ip %>:<%= @kube_master_port %>
           tls_config:
-            ca_file: <%= node['kube-hops']['certs']['ca'] %>
-            cert_file: <%= node['kube-hops']['hopsmon']['cert'] %>
-            key_file: <%= node['kube-hops']['hopsmon']['key'] %>
+            ca_file: <%= node['hopsmonitor']['kube_ca'] %>
+            cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
+            key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
             insecure_skip_verify: true
       scheme: https
       tls_config:
-        ca_file: <%= node['kube-hops']['certs']['ca'] %>
-        cert_file: <%= node['kube-hops']['hopsmon']['cert'] %>
-        key_file: <%= node['kube-hops']['hopsmon']['key'] %>
+        ca_file: <%= node['hopsmonitor']['kube_ca'] %>
+        cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
+        key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
         insecure_skip_verify: true
       relabel_configs:
         # Scrape only the the targets matching the following metadata
@@ -221,15 +222,15 @@ scrape_configs:
         - role: pod
           api_server: https://<%= @kube_cluster_master_ip %>:<%= node['kube-hops']['apiserver']['port'] %>
           tls_config:
-            ca_file: <%= node['kube-hops']['certs']['ca'] %>
-            cert_file: <%= node['kube-hops']['hopsmon']['cert'] %>
-            key_file: <%= node['kube-hops']['hopsmon']['key'] %>
+            ca_file: <%= node['hopsmonitor']['kube_ca'] %>
+            cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
+            key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
             insecure_skip_verify: true
       scheme: https
       tls_config:
-        ca_file: <%= node['kube-hops']['certs']['ca'] %>
-        cert_file: <%= node['kube-hops']['hopsmon']['cert'] %>
-        key_file: <%= node['kube-hops']['hopsmon']['key'] %>
+        ca_file: <%= node['hopsmonitor']['kube_ca'] %>
+        cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
+        key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
         insecure_skip_verify: true
       relabel_configs:
         # Scrape only the the targets matching the following metadata
@@ -243,7 +244,7 @@ scrape_configs:
           target_label: pod
         - source_labels: [__meta_kubernetes_service_name]
           target_label: service
-
+<% end -%>
 <% if @managed_cloud -%>
 remote_write:
   - url: "http://localhost:<%= node['cloud']['metrics']['port'] %>/receive"
