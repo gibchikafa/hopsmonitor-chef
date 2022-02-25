@@ -190,7 +190,7 @@ scrape_configs:
       scrape_timeout: 3s
       kubernetes_sd_configs:
         - role: pod
-          api_server: https://<%= @kube_cluster_master_ip %>:<%= @kube_master_port %>
+          api_server: https://<%= @kube_cluster_master_ip %>:<%= node['kube-hops']['apiserver']['port'] %>
           tls_config:
             ca_file: <%= node['hopsmonitor']['kube_ca'] %>
             cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>

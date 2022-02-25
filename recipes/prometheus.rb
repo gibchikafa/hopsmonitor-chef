@@ -74,13 +74,6 @@ link node['prometheus']['base_dir'] do
   to node['prometheus']['home']
 end
 
-kube_master_port = "6443"
-if node.attribute?('kube-hops')
-  if node['kube-hops'].attribute?('apiserver') and node['kube-hops']['apiserver'].attribute?('port')
-    kube_master_port = node['kube-hops']['apiserver']['port']
-  end
-end
-
 crypto_dir = x509_helper.get_crypto_dir(node['hopsmonitor']['user'])
 certificate = "#{crypto_dir}/#{x509_helper.get_certificate_bundle_name(node['hopsmonitor']['user'])}"
 key = "#{crypto_dir}/#{x509_helper.get_private_key_pkcs8_name(node['hopsmonitor']['user'])}"
@@ -101,7 +94,6 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
       'hops_ca' => hops_ca,
       'managed_cloud' => managed_cloud,
       'kube_master_ip' => kube_cluster_master_ip,
-      'kube_master_port' => kube_master_port
   })
 end
 
