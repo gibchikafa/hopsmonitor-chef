@@ -7,5 +7,9 @@ dependencies:
       - kagent::default
   - recipe: hopsmonitor::prometheus
     global:
-      - kagent::default
       - kube-hops::hopsmon
+      - kube-hops::ca
+      - kube-hops::node
+      - kube-hops::master
+      - kube-hops::addons
+
