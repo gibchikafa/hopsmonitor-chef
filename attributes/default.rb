@@ -4,6 +4,8 @@ include_attribute "hops"
 include_attribute "ndb"
 include_attribute "tensorflow"
 include_attribute "hops_airflow"
+include_attribute "kube-hops"
+
 
 default['hopsmonitor']['user']                    = node['install']['user'].empty? ? "hopsmon" : node['install']['user']
 default['hopsmonitor']['user_id']                 = '1503'
@@ -96,3 +98,5 @@ default['hopsmonitor']['kube_ca'] = "#{node['certs']['dir']}/kube/kube-ca.cert.p
 default['hopsmonitor']['kube_certs_dir'] = "#{node['prometheus']['root_dir']}/kube-certs"
 default['hopsmonitor']['hopsmon_kube_key'] = "#{node['prometheus']['root_dir']}/kube-certs/hopsmon.key"
 default['hopsmonitor']['hopsmon_kube_cert'] = "#{node['prometheus']['root_dir']}/kube-certs/hopsmon.key"
+
+
