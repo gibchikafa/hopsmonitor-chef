@@ -94,9 +94,10 @@ default['cloud']['queue_config']['max_sample_per_send']  = "5000"
 default['cloud']['queue_config']['batch_send_deadline']  = "60s"
 default['cloud']['metrics']['port']                      = "9096"
 
-default['hopsmonitor']['kube_ca'] = "#{node['certs']['dir']}/kube/kube-ca.cert.pem"
-default['hopsmonitor']['kube_certs_dir'] = "#{node['prometheus']['root_dir']}/kube-certs"
+default['hopsmonitor']['kube_ca'] = "#{node['certs']['dir']}/kube/certs/kube-ca.cert.pem"
+#default['hopsmonitor']['kube_ca'] = "#{node['certs']['dir']}/kube/kube-ca.cert.pem"
+default['hopsmonitor']['kube_certs_dir'] = "#{node['prometheus']['root_dir']}/kube-certs/"
 default['hopsmonitor']['hopsmon_kube_key'] = "#{node['prometheus']['root_dir']}/kube-certs/hopsmon.key"
-default['hopsmonitor']['hopsmon_kube_cert'] = "#{node['prometheus']['root_dir']}/kube-certs/hopsmon.key"
+default['hopsmonitor']['hopsmon_kube_cert'] = "#{node['prometheus']['root_dir']}/kube-certs/hopsmon.crt"
 
 

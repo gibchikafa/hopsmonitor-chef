@@ -77,32 +77,35 @@ end
 
 kube_cluster_master_ip=
   
-  if node["install"]["kubernetes"].casecmp? "true"
-
-    directory node['kube-hops']['monitoring']['certs-dir'] do
-      owner node['hopsmonitor']['user']
-      group node['hopsmonitor']['group']
-      mode '0700'
-      action :create
-      not_if { ::File.directory?(node['kube-hops']['monitoring']['certs-dir']) }
-    end
-
-    file node['kube-hops']['monitoring']['cert-crt'] do
-      content node['hopsmonitor']['prometheus']['crt']
-      mode '0600'
-      owner node['hopsmonitor']['user']
-      group node['hopsmonitor']['group']
-    end
-
-    # file node['kube-hops']['monitoring']['cert-key'] do
-    #   content node['hopsmonitor']['prometheus']['key']
-    #   mode '0600'
-    #   owner node['hopsmonitor']['user']
-    #   group node['hopsmonitor']['group']
-    # end
-    
-    kube_cluster_master_ip = private_recipe_ip('kube-hops', 'master')
+if node["install"]["kubernetes"].casecmp? "true"
+   directory node['kube-hops']['monitoring']['certs-dir'] do
+    owner node['hopsmonitor']['user']
+    group node['hopsmonitor']['group']
+    mode '0700'
+    action :create
+    not_if { ::File.directory?(node['kube-hops']['monitoring']['certs-dir']) }
   end
+  file node['hopsmonitor']['hopsmon_kube_cert'] do
+    content node['hopsmonitor']['prometheus']['crt']
+    mode '0600'
+    owner node['hopsmonitor']['user']
+    group node['hopsmonitor']['group']
+  end
+  file node['hopsmonitor']['hopsmon_kube_key'] do
+    content node['hopsmonitor']['prometheus']['key']
+    mode '0600'
+    owner node['hopsmonitor']['user']
+    group node['hopsmonitor']['group']
+  end
+  file node['hopsmonitor']['kube_ca'] do
+    content node['hopsmonitor']['prometheus']['ca']
+    mode '0600'
+    owner node['hopsmonitor']['user']
+    group node['hopsmonitor']['group']
+  end
+  
+  kube_master_ip = private_recipe_ip('kube-hops', 'master')
+end
 
 
 crypto_dir = x509_helper.get_crypto_dir(node['hopsmonitor']['user'])
@@ -124,7 +127,7 @@ template "#{node['prometheus']['base_dir']}/prometheus.yml" do
       'key' => key,
       'hops_ca' => hops_ca,
       'managed_cloud' => managed_cloud,
-      'kube_master_ip' => kube_cluster_master_ip,
+      'kube_master_ip' => kube_master_ip,
   })
 end
 
