@@ -106,12 +106,6 @@ scrape_configs:
           cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
           key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
           insecure_skip_verify: true
-    scheme: https
-    tls_config:
-      ca_file: <%= node['hopsmonitor']['kube_ca'] %>
-      cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
-      key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
-      insecure_skip_verify: true
     relabel_configs:
       # Scrape only the the targets matching the following metadata
       - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_pod_label_app, __meta_kubernetes_pod_container_port_name]
@@ -136,12 +130,6 @@ scrape_configs:
           cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
           key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
           insecure_skip_verify: true
-    scheme: https
-    tls_config:
-      ca_file: <%= node['hopsmonitor']['kube_ca'] %>
-      cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
-      key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
-      insecure_skip_verify: true
     relabel_configs:
       # Scrape only the the targets matching the following metadata
       - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_pod_label_app, __meta_kubernetes_pod_container_port_name]
@@ -166,12 +154,6 @@ scrape_configs:
           cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
           key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
           insecure_skip_verify: true
-    scheme: https
-    tls_config:
-      ca_file: <%= node['hopsmonitor']['kube_ca'] %>
-      cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
-      key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
-      insecure_skip_verify: true
     relabel_configs:
       # Scrape only the the targets matching the following metadata
       - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_pod_label_app, __meta_kubernetes_pod_container_port_name]
@@ -196,12 +178,6 @@ scrape_configs:
           cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
           key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
           insecure_skip_verify: true
-    scheme: https
-    tls_config:
-      ca_file: <%= node['hopsmonitor']['kube_ca'] %>
-      cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
-      key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
-      insecure_skip_verify: true
     relabel_configs:
       # Scrape only the the targets matching the following metadata
       - source_labels: [__meta_kubernetes_namespace, __meta_kubernetes_pod_label_role, __meta_kubernetes_pod_container_port_name]
@@ -226,12 +202,6 @@ scrape_configs:
           cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
           key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
           insecure_skip_verify: true
-    scheme: https
-    tls_config:
-      ca_file: <%= node['hopsmonitor']['kube_ca'] %>
-      cert_file: <%= node['kube-hops']['monitoring']['cert-crt'] %>
-      key_file: <%= node['kube-hops']['monitoring']['cert-key'] %>
-      insecure_skip_verify: true
     relabel_configs:
       # Scrape only the the targets matching the following metadata
       - source_labels: [__meta_kubernetes_pod_label_serving_knative_dev_revision, __meta_kubernetes_pod_container_port_name]
