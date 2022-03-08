@@ -78,7 +78,8 @@ end
 kube_cluster_master_ip=
   
 if node["install"]["kubernetes"].casecmp? "true"
-   directory node['kube-hops']['monitoring']['certs-dir'] do
+             
+  directory node['hopsmonitor']['kube_certs_dir'] do
     owner node['hopsmonitor']['user']
     group node['hopsmonitor']['group']
     mode '0700'
@@ -97,13 +98,6 @@ if node["install"]["kubernetes"].casecmp? "true"
     owner node['hopsmonitor']['user']
     group node['hopsmonitor']['group']
   end
-  file node['hopsmonitor']['kube_ca'] do
-    content node['hopsmonitor']['prometheus']['ca']
-    mode '0600'
-    owner node['hopsmonitor']['user']
-    group node['hopsmonitor']['group']
-  end
-  
   kube_master_ip = private_recipe_ip('kube-hops', 'master')
 end
 
