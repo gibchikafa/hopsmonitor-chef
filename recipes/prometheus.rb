@@ -80,7 +80,12 @@ kube_cluster_master_ip=
 if node["install"]["kubernetes"].casecmp? "true"
 
   kube_master_ip = private_recipe_ip('kube-hops', 'master')
-  
+
+  if node['kube-hops']['monitoring']['cert-crt'].eql? ""
+    raise "No cert received from kube-hops::hopsmon"
+  end 
+
+ 
   directory node['kube-hops']['monitoring']['certs-dir'] do
     owner node['hopsmonitor']['user']
     group node['hopsmonitor']['group']
